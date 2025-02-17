@@ -1,0 +1,110 @@
+﻿<Window x:Class="DeepSeekSpirit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:local="clr-namespace:DeepSeekSpirit"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        SizeToContent="WidthAndHeight"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        FontSize="16"
+        Left="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=X}"
+        Top="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Y}"
+        Opacity="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Opacity}"
+        Topmost="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Topmost}"
+        local:WindowAttach.ShowInTaskManager="False"
+        local:WindowAttach.IgnoreAltF4="True"
+        local:WindowAttach.HideWhenClosing="True"
+        local:WindowAttach.SnapDistance="0"
+        local:WindowAttach.SnapToScreenEdge="True"
+        local:WindowAttach.IsDragElement="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CanDrag}">
+
+    <Border Background="{StaticResource BackgroundBrush}" Margin="10" BorderThickness="1" CornerRadius="{Binding ElementName=wv1, Path=Visibility, Converter={StaticResource CRSC}}"
+            BorderBrush="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource B2RC}, ConverterParameter='HighlightBrush,TransparentBrush'}"
+            Effect="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource B2RC}, ConverterParameter='EffectShadow_HighlightColor,EffectShadow'}">
+        <local:SimplePanel>
+
+            <!--#region 指示器-->
+            <Ellipse Fill="{StaticResource HighlightBrush}" Visibility="{Binding ElementName=wv1, Path=Visibility}" IsHitTestVisible="False" Height="12" Width="12" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,32,0,0"/>
+            <!--#endregion-->
+
+            <!--#region 主窗口-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0" LastChildFill="False" Margin="2">
+                    <Button Width="40" Height="40" DockPanel.Dock="Top" Style="{StaticResource ButtonBaseStyle}" Click="Link1_Click" Margin="2">
+                        <Image Source="/DeepSeekSpirit;component/resource/dslogo.png" Stretch="UniformToFill"/>
+                    </Button>
+                    <Button Width="30" Height="30" DockPanel.Dock="Top" Content="⭯" Style="{StaticResource ButtonBaseStyle}" Click="ReloadDS_Button_Click" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2,6,2,2"/>
+                    <Button Width="30" Height="30" DockPanel.Dock="Top" Content="🡠" Style="{StaticResource ButtonBaseStyle}" Command="{Binding WebBrowser.BackCommand, ElementName=wv1}" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2"/>
+                    <Button Width="30" Height="30" DockPanel.Dock="Top" Content="🡢" Style="{StaticResource ButtonBaseStyle}" Command="{Binding WebBrowser.ForwardCommand, ElementName=wv1}" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2"/>
+                    <Button Width="30" Height="30" DockPanel.Dock="Bottom" local:IconElement.Geometry="{StaticResource ConfigGeometry}" local:IconElement.Width="18" local:IconElement.Height="18" Style="{StaticResource ButtonIcon}" Click="Config_Button_Click" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2,2,2,7"/>
+                </DockPanel>
+                <Border Grid.Column="1" Background="White">
+                    <cef:ChromiumWebBrowser Name="wv1" Width="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Width}" Height="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Height}"
+                                            Address="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=DeepSeekAddr}" Visibility="Collapsed"/>
+                </Border>
+                <Border Grid.Column="1" Background="White" x:Name="ConfigBD" Width="400" Height="200" CornerRadius="12" BorderBrush="{StaticResource HighlightBrush}" Effect="{StaticResource EffectShadow_HighlightColor}" Visibility="Collapsed">
+                    <Grid Margin="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="设置" FontSize="24" Margin="0,0,0,20"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="DeepSeek" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" Text="浏览器宽度" Margin="0,0,0,10"/>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Text="浏览器高度" Margin="0,0,0,10"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" x:Name="ConfigTB1" Text="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=DeepSeekAddr, Mode=OneWay}" BorderThickness="0,0,0,1" Margin="10,0,0,10"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" x:Name="ConfigTB2" Text="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Width, Mode=OneWay}" BorderThickness="0,0,0,1" Margin="10,0,0,10"/>
+                        <TextBox Grid.Column="1" Grid.Row="3" x:Name="ConfigTB3" Text="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Height, Mode=OneWay}" BorderThickness="0,0,0,1" Margin="10,0,0,10"/>
+                        <Button Grid.Column="1" Grid.Row="5" Width="30" Height="30" Content="✔" FontSize="14" Style="{StaticResource ButtonBaseStyle}" HorizontalAlignment="Right" Click="Config_Confirm_Button_Click" Margin="0,0,40,0"/>
+                        <Button Grid.Column="1" Grid.Row="5" Width="30" Height="30" Content="✖" FontSize="14" Style="{StaticResource ButtonBaseStyle}" HorizontalAlignment="Right" Click="Config_Close_Button_Click"/>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!--#endregion-->
+
+            <!--#region 顶部按钮-->
+            <Button Width="18" Height="18" Style="{StaticResource ButtonIcon}"
+                    Foreground="{Binding Topmost, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource B2RC}, ConverterParameter='HighlightBrush,BackgroundBrush'}"
+                    Background="White" Click="Info_Click" MouseDoubleClick="Info_MouseDoubleClick" MouseWheel="Info_MouseWheel"
+                    local:BorderElement.CornerRadius="9"  ToolTip="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=HotKey, Converter={StaticResource SFC}, ConverterParameter='DeepSeek桌面精灵&#x0a;呼出快捷键&quot;{0}&quot;&#x0a;&#x0a;单击切换置顶状态&#x0a;双击切换位置锁定&#x0a;滚轮调整透明度&#x0a;&#x0a;管省超@溧阳公安'}"
+                    local:IconElement.Geometry="{StaticResource InfoGeometry}" Padding="-1"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-5,-5,0,0"/>
+            <Button Width="18" Height="18" Style="{StaticResource ButtonIcon}"
+                    Foreground="{StaticResource DangerBrush}"
+                    Background="White" Click="Exit_Click"
+                    local:BorderElement.CornerRadius="9" ToolTip="单击关闭应用程序"
+                    local:IconElement.Geometry="{StaticResource ErrorGeometry}" Padding="-1"
+                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-5,-5,0">
+                <Button.Visibility>
+                    <MultiBinding Converter="{StaticResource EISC}">
+                        <Binding RelativeSource="{RelativeSource AncestorType=Window}" Path="IsMouseOver"/>
+                        <Binding ElementName="wv1" Path="Visibility"/>
+                    </MultiBinding>
+                </Button.Visibility>
+            </Button>
+            <!--#endregion-->
+
+        </local:SimplePanel>
+    </Border>
+</Window>
