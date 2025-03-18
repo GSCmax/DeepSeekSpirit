@@ -81,8 +81,8 @@
                         <TextBox Grid.Column="1" Grid.Row="1" x:Name="ConfigTB1" Text="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=DeepSeekAddr, Mode=OneWay}" BorderThickness="0,0,0,1" Margin="10,0,0,10"/>
                         <TextBox Grid.Column="1" Grid.Row="2" x:Name="ConfigTB2" Text="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Width, Mode=OneWay}" BorderThickness="0,0,0,1" Margin="10,0,0,10"/>
                         <TextBox Grid.Column="1" Grid.Row="3" x:Name="ConfigTB3" Text="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Height, Mode=OneWay}" BorderThickness="0,0,0,1" Margin="10,0,0,10"/>
-                        <Button Grid.Column="1" Grid.Row="5" Width="30" Height="30" Content="✔" FontSize="14" Style="{StaticResource ButtonBaseStyle}" HorizontalAlignment="Right" Click="Config_Confirm_Button_Click" Margin="0,0,40,0"/>
-                        <Button Grid.Column="1" Grid.Row="5" Width="30" Height="30" Content="✖" FontSize="14" Style="{StaticResource ButtonBaseStyle}" HorizontalAlignment="Right" Click="Config_Close_Button_Click"/>
+                        <Button Grid.Column="1" Grid.Row="5" Width="30" Height="30" Content="✔" FontSize="14" Style="{StaticResource ButtonBaseStyle}" Background="{DynamicResource BackgroundBrush}" Foreground="White" HorizontalAlignment="Right" Click="Config_Confirm_Button_Click" Margin="0,0,40,0"/>
+                        <Button Grid.Column="1" Grid.Row="5" Width="30" Height="30" Content="✖" FontSize="14" Style="{StaticResource ButtonBaseStyle}" Background="{DynamicResource BackgroundBrush}" Foreground="White" HorizontalAlignment="Right" Click="Config_Close_Button_Click"/>
                     </Grid>
                 </Border>
                 <!--#endregion-->
