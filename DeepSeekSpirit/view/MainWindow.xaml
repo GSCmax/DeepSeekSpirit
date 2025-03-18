@@ -32,11 +32,9 @@
             BorderBrush="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource B2RC}, ConverterParameter='HighlightBrush,TransparentBrush'}"
             Effect="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource B2RC}, ConverterParameter='EffectShadow_HighlightColor,EffectShadow'}">
         <local:SimplePanel>
-
             <!--#region 指示器-->
-            <Ellipse Fill="{StaticResource HighlightBrush}" Visibility="{Binding ElementName=wv1, Path=Visibility}" IsHitTestVisible="False" Height="12" Width="12" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,32,0,0"/>
+            <!--<Ellipse Fill="{StaticResource HighlightBrush}" Visibility="{Binding ElementName=wv1, Path=Visibility}" IsHitTestVisible="False" Height="12" Width="12" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="32,32,0,0"/>-->
             <!--#endregion-->
-
             <!--#region 主窗口-->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -44,18 +42,25 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Column="0" LastChildFill="False" Margin="2">
+                    <!--#region AI按钮-->
                     <Button Width="40" Height="40" DockPanel.Dock="Top" Style="{StaticResource ButtonBaseStyle}" Click="Link1_Click" Margin="2">
                         <Image Source="/DeepSeekSpirit;component/resource/dslogo.png" Stretch="UniformToFill"/>
                     </Button>
+                    <!--#endregion-->
+                    <!--#region 浏览器功能按钮-->
                     <Button Width="30" Height="30" DockPanel.Dock="Top" Content="⭯" Style="{StaticResource ButtonBaseStyle}" Click="ReloadDS_Button_Click" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2,6,2,2"/>
                     <Button Width="30" Height="30" DockPanel.Dock="Top" Content="🡠" Style="{StaticResource ButtonBaseStyle}" Command="{Binding WebBrowser.BackCommand, ElementName=wv1}" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2"/>
                     <Button Width="30" Height="30" DockPanel.Dock="Top" Content="🡢" Style="{StaticResource ButtonBaseStyle}" Command="{Binding WebBrowser.ForwardCommand, ElementName=wv1}" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2"/>
                     <Button Width="30" Height="30" DockPanel.Dock="Bottom" local:IconElement.Geometry="{StaticResource ConfigGeometry}" local:IconElement.Width="18" local:IconElement.Height="18" Style="{StaticResource ButtonIcon}" Click="Config_Button_Click" Visibility="{Binding Visibility, ElementName=wv1}" Margin="2,2,2,7"/>
+                    <!--#endregion-->
                 </DockPanel>
+                <!--#region 浏览器-->
                 <Border Grid.Column="1" Background="White">
                     <cef:ChromiumWebBrowser Name="wv1" Width="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Width}" Height="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=Height}"
                                             Address="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=DeepSeekAddr}" Visibility="Collapsed"/>
                 </Border>
+                <!--#endregion-->
+                <!--#region 设置-->
                 <Border Grid.Column="1" Background="White" x:Name="ConfigBD" Width="400" Height="200" CornerRadius="12" BorderBrush="{StaticResource HighlightBrush}" Effect="{StaticResource EffectShadow_HighlightColor}" Visibility="Collapsed">
                     <Grid Margin="12">
                         <Grid.ColumnDefinitions>
@@ -80,9 +85,9 @@
                         <Button Grid.Column="1" Grid.Row="5" Width="30" Height="30" Content="✖" FontSize="14" Style="{StaticResource ButtonBaseStyle}" HorizontalAlignment="Right" Click="Config_Close_Button_Click"/>
                     </Grid>
                 </Border>
+                <!--#endregion-->
             </Grid>
             <!--#endregion-->
-
             <!--#region 顶部按钮-->
             <Button Width="18" Height="18" Style="{StaticResource ButtonIcon}"
                     Foreground="{Binding Topmost, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource B2RC}, ConverterParameter='HighlightBrush,BackgroundBrush'}"
@@ -104,7 +109,6 @@
                 </Button.Visibility>
             </Button>
             <!--#endregion-->
-
         </local:SimplePanel>
     </Border>
 </Window>
