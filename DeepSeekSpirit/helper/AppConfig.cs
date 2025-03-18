@@ -2,7 +2,7 @@
 {
     internal class AppConfig
     {
-        public static readonly string SavePath = $"{AppDomain.CurrentDomain.BaseDirectory}Config.json";
+        public static readonly string SavePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DeepSeekSpirit\\Config.json");
 
         public double X { get; set; } = 50;
 
