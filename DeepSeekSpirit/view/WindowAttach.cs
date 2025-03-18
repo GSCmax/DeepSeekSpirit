@@ -32,28 +32,22 @@ namespace DeepSeekSpirit
             {
                 if ((bool)e.NewValue)
                 {
-                    //ctl.MouseLeftButtonDown += DragElement_MouseLeftButtonDown;
-                    ctl.PreviewMouseLeftButtonDown += DragElement_PreviewMouseLeftButtonDown;
-                    ctl.PreviewMouseMove += DragElement_PreviewMouseMove;
-                    ctl.PreviewMouseLeftButtonUp += DragElement_PreviewMouseLeftButtonUp;
+                    ctl.MouseLeftButtonDown += DragElement_MouseLeftButtonDown;
+                    //ctl.PreviewMouseLeftButtonDown += DragElement_PreviewMouseLeftButtonDown;
+                    //ctl.PreviewMouseMove += DragElement_PreviewMouseMove;
+                    //ctl.PreviewMouseLeftButtonUp += DragElement_PreviewMouseLeftButtonUp;
                     //ctl.KeyDown += DragElement_KeyDown;
                 }
                 else
                 {
-                    //ctl.MouseLeftButtonDown -= DragElement_MouseLeftButtonDown;
-                    ctl.PreviewMouseLeftButtonDown -= DragElement_PreviewMouseLeftButtonDown;
-                    ctl.PreviewMouseMove -= DragElement_PreviewMouseMove;
-                    ctl.PreviewMouseLeftButtonUp -= DragElement_PreviewMouseLeftButtonUp;
+                    ctl.MouseLeftButtonDown -= DragElement_MouseLeftButtonDown;
+                    //ctl.PreviewMouseLeftButtonDown -= DragElement_PreviewMouseLeftButtonDown;
+                    //ctl.PreviewMouseMove -= DragElement_PreviewMouseMove;
+                    //ctl.PreviewMouseLeftButtonUp -= DragElement_PreviewMouseLeftButtonUp;
                     //ctl.KeyDown -= DragElement_KeyDown;
                 }
             }
         }
-
-        /// <summary>
-        /// 未使用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private static void DragElement_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is DependencyObject obj && e.ButtonState == MouseButtonState.Pressed && GetIsDragElement(sender as UIElement))
@@ -62,6 +56,7 @@ namespace DeepSeekSpirit
             }
         }
 
+        /* 未使用
         private static Point _pressedPosition;
         private static bool _isDragMoved = false;
 
@@ -91,11 +86,6 @@ namespace DeepSeekSpirit
             }
         }
 
-        /// <summary>
-        /// 未使用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private static void DragElement_KeyDown(object sender, KeyEventArgs e)
         {
             if (sender is DependencyObject obj)
@@ -121,6 +111,7 @@ namespace DeepSeekSpirit
                 }
             }
         }
+        */
         #endregion
 
         #region IgnoreAltF4
